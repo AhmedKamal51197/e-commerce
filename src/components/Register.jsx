@@ -33,8 +33,8 @@ export default function Register() {
         })
       }
       localStorage.setItem("users", JSON.stringify(users));
+      navigate("/login");
     }
-    console.log(JSON.parse(localStorage.getItem("users")));
   };
 
   return (

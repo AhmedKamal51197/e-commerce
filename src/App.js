@@ -4,6 +4,7 @@ import Layout from "./components/Layout ";
 import Register from "./components/Register";
 import Login from "./components/Login";
 import ItemDetails from "./components/ItemDetails";
+import Cart from "./components/Cart";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
             <Route path="login" element={<Login />} />
             <Route path="register" element={<Register />} />
             <Route path="item-details/:id" element={<ItemDetails />} />
+            <Route path="cart" element={<Cart />} />
             <Route path="*" element={<>NoPage</>} />
           </Route>
         </Routes>

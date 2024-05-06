@@ -8,10 +8,10 @@ export default function ClothesList(){
     const [colthes, setClothes] = useState([]);
     const [pageColthes, setPageClothes] = useState([]);
     const [page, setPage] = useState(1);
+    
     const handleChange = (event, value) => {
         setPage(value);
-        console.log(value);
-        const start = (page -1)* 5;
+        const start = (page - 1) * 5;
         setPageClothes(prev => colthes.slice(start, start + 5));
     };
 
@@ -25,8 +25,6 @@ export default function ClothesList(){
           setPageClothes(prev => result.data.slice(0, 5));
         })
         .catch((err) => console.log(err));
-
-        console.log(colthes)
     }, []);
 
       return (
