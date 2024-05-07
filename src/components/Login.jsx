@@ -5,27 +5,38 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { Link, useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 export default function Login() {
     const navigate = useNavigate();
-  const handleSubmit = (event) => {
+   
+    const [loginError,setLoginError]=useState("");  
+    const handleSubmit = (event) => {
     event.preventDefault();
+   
+
+
     const data = new FormData(event.currentTarget);
-    const user = {
+    const userLogin = {
       email: data.get("email"),
       password: data.get("password"),
     }
-    var users = JSON.parse(localStorage.getItem("users"));
-    var isUserExist = false;
-    users?.map((user)=>{
-      if(user.email === user.email && user.password === user.password){
-        isUserExist = true;
+      var users = JSON.parse(localStorage.getItem("users"));
+      var isUserExist = false;
+      users?.map((user)=>{
+        if(userLogin.email === user.email && userLogin.password === user.password){
+          isUserExist = true;
+        }
+      })
+      if(isUserExist){
+        localStorage.setItem("loged-in-user", JSON.stringify(userLogin));
+        navigate("/");
       }
-    })
-    if(isUserExist){
-      localStorage.setItem("loged-in-user", JSON.stringify(user));
-      navigate("/");
-    }
+      else{
+        setLoginError("Incoorect email or password");
+      }
+   
+    
   };
 
   return (
@@ -51,6 +62,7 @@ export default function Login() {
             name="email"
             autoComplete="email"
             autoFocus
+          
           />
           <TextField
             margin="normal"
@@ -61,6 +73,7 @@ export default function Login() {
             type="password"
             id="password"
             autoComplete="current-password"
+           
           />
           <Button
             type="submit"
@@ -70,6 +83,13 @@ export default function Login() {
           >
             Log In
           </Button>
+          {loginError && <Typography
+          color="error" 
+          variant="body2"
+          align="center">
+            {loginError}
+          </Typography>
+          }
           <Grid container>
             <Grid item>
               <Link to="/register" variant="body2">
